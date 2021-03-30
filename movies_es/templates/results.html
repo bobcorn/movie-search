@@ -73,7 +73,7 @@
             {% endif %}
         </p>
     </div>
-    
+
     <br> {% for hit in res['hits']['hits'] %}
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -94,8 +94,12 @@
         </div>
 
         <div class="panel-body">
-            <div class="plot">
-                {{ hit['highlight']['plot'][0] | safe }}
+            <div>
+                {% if hit.__contains__('highlight') %}
+                {{ hit['highlight']['fullplot'][0] | safe }}
+                {% else %}
+                {{ hit['_source']['fullplot']}}
+                {% endif %}
             </div>
         </div>
         <div class="panel-footer">
