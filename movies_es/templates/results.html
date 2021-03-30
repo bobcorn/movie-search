@@ -59,11 +59,6 @@
     <hr>
     <div class="search-info-container">
         <p class="search-info-left">
-            <b>Displayed:</b> Top 20
-        <p>
-            <b>Results:</b> {{ res['hits']['total']['value'] }}
-        </p>
-        <p class="search-info-right">
             {% if search_mode == 'no-boost' %}
             <b>Search mode:</b> No boost
             {% elif search_mode == 'imdb-boost' %}
@@ -72,6 +67,11 @@
             <b>Search mode:</b> Rotten Tomatoes-boosted
             {% endif %}
         </p>
+        <p>
+            <b>Results:</b> {{ res['hits']['total']['value'] }}
+        </p>
+        <p class="search-info-right">
+            <b>Displayed:</b> Top 20
     </div>
 
     <br> {% for hit in res['hits']['hits'] %}
@@ -112,7 +112,7 @@
             {% if hit['_source']['tomatoes.viewer.rating'] > 0.0 %}
             <i class="fas fa-apple-alt"></i> Rotten Tomatoes rating: {{ hit['_source']['tomatoes.viewer.rating'] }}
             {% else %}
-            <i class="fab fa-imdb"></i> Rotten Tomatoes rating: N/A
+            <i class="fas fa-apple-alt"></i> Rotten Tomatoes rating: N/A
             {% endif %}
         </div>
     </div>
