@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="icon" href="http://obj-cache.cloud.ruanbekker.com/favicon.ico">
+    <link href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Searching...</title>
+</head>
+
+<body>
+<div class="container">
+    <div style="background:transparent !important" class="jumbotron">
+        <div style="font-family: 'Pacifico', cursive;">
+            <a href="/">
+                <a href="/">
+                    <center>
+                        <h1 class="main-title">
+                            <i class="fas fa-film"></i> Movie Search
+                        </h1>
+                    </center>
+                </a>
+            </a>
+        </div>
+    </div>
+
+    <form action="/search/results" method="post">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
+            <div class="input-group-btn">
+                <button name="search" class="btn btn-primary btn-lg" type="submit" value="search">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+                <button name="search" class="btn btn-primary btn-lg" type="submit" value="imdb-search">
+                    <i class="fab fa-imdb"></i><br>
+                    <div class="boost-tag">boost</div>
+                </button>
+                <button name="search" class="btn btn-primary btn-lg" type="submit" value="tomatoes-search">
+                    <i class="fas fa-apple-alt"></i><br>
+                    <div class="boost-tag">boost</div>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

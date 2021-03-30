@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="icon" href="http://obj-cache.cloud.ruanbekker.com/favicon.ico">
+    <link href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>
+        {% if search_mode == 'no-boost' %}
+        Results
+        {% elif search_mode == 'imdb-boost' %}
+        IMDb-boosted results
+        {% elif search_mode == 'tomatoes-boost' %}
+        Rotten Tomatoes-boosted results
+        {% endif %}
+    </title>
+</head>
+
+<body>
+<div class="container">
+    <div style="background:transparent !important" class="jumbotron">
+        <div style="font-family: 'Pacifico', cursive;">
+            <a href="/">
+                <center>
+                    <h1 class="main-title">
+                        <i class="fas fa-film"></i> Movie Search
+                    </h1>
+                </center>
+            </a>
+        </div>
+    </div>
+
+    <form action="/search/results" method="post">
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
+            <div class="input-group-btn">
+                <button name="search" class="btn btn-primary btn-lg" type="submit" value="search">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+                <button name="search" class="btn btn-primary btn-lg" type="submit" value="imdb-search">
+                    <i class="fab fa-imdb"></i><br>
+                    <div class="boost-tag">boost</div>
+                </button>
+                <button name="search" class="btn btn-primary btn-lg" type="submit" value="tomatoes-search">
+                    <i class="fas fa-apple-alt"></i><br>
+                    <div class="boost-tag">boost</div>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <br>
+    <hr>
+
+    <center>
+        <p style="text-align: center;">
+            {% if search_mode == 'no-boost' %}
+            Results: {{ res['hits']['total']['value'] }} (top 20 shown)
+            {% elif search_mode == 'imdb-boost' %}
+            IMDb-boosted results: {{ res['hits']['total']['value'] }} (top 20 shown)
+            {% elif search_mode == 'tomatoes-boost' %}
+            Rotten Tomatoes-boosted results: {{ res['hits']['total']['value'] }} (top 20 shown)
+            {% endif %}
+        </p>
+    </center>
+
+    <br> {% for hit in res['hits']['hits'] %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="score">
+                {% if search_mode == 'no-boost' %}
+                #{{ loop.index0 + 1}}) Score: {{ hit['_score'] }}
+                {% elif search_mode == 'imdb-boost' %}
+                #{{ loop.index0 + 1}}) IMDb-boosted score: {{ hit['_score'] }}
+                {% elif search_mode == 'tomatoes-boost' %}
+                #{{ loop.index0 + 1}}) Rotten Tomatoes-boosted score: {{ hit['_score'] }}
+                {% endif %}
+            </div>
+            <div class="title">
+                "{{ hit['_source']['title'] }}"
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="plot">
+                {{ hit['highlight']['plot'][0] | safe }}
+            </div>
+            <div class="ratings">
+                {% if hit['_source']['imdb.rating'] > 0.0 %}
+                <i class="fab fa-imdb"></i> IMDb rating: {{ hit['_source']['imdb.rating'] }}
+                {% endif %}
+                {% if hit['_source']['tomatoes.viewer.rating'] > 0.0 %}
+                <br>
+                <i class="fas fa-apple-alt"></i> Rotten Tomatoes rating: {{ hit['_source']['tomatoes.viewer.rating'] }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
