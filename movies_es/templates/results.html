@@ -22,7 +22,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="main-container container">
     <div style="background:transparent !important" class="jumbotron">
         <div style="font-family: 'Pacifico', cursive;">
             <a href="/">
@@ -40,14 +40,15 @@
             <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
             <div class="input-group-btn">
                 <button name="search" class="btn btn-primary btn-lg" type="submit" value="search">
-                    <i class="glyphicon glyphicon-search"></i>
+                    <i class="fas fa-search"></i>
+                    <div class="boost-tag">search</div>
                 </button>
-                <button name="search" class="btn btn-primary btn-lg" type="submit" value="imdb-search">
-                    <i class="fab fa-imdb"></i><br>
+                <button name="search" class="btn btn-primary btn-lg btn-imdb" type="submit" value="imdb-search">
+                    <i class="fab fa-imdb"></i>
                     <div class="boost-tag">boost</div>
                 </button>
-                <button name="search" class="btn btn-primary btn-lg" type="submit" value="tomatoes-search">
-                    <i class="fas fa-apple-alt"></i><br>
+                <button name="search" class="btn btn-primary btn-lg btn-tomatoes" type="submit" value="tomatoes-search">
+                    <i class="fas fa-apple-alt"></i>
                     <div class="boost-tag">boost</div>
                 </button>
             </div>
@@ -56,22 +57,27 @@
 
     <br>
     <hr>
-
-    <center>
-        <p style="text-align: center;">
+    <div class="search-info-container">
+        <p class="search-info-left">
+            <b>Displayed:</b> Top 20
+        <p>
+            <b>Results:</b> {{ res['hits']['total']['value'] }}
+        </p>
+        <p class="search-info-right">
             {% if search_mode == 'no-boost' %}
-            Results: {{ res['hits']['total']['value'] }} (top 20 shown)
+            <b>Search mode:</b> No boost
             {% elif search_mode == 'imdb-boost' %}
-            IMDb-boosted results: {{ res['hits']['total']['value'] }} (top 20 shown)
+            <b>Search mode:</b> IMDb-boosted
             {% elif search_mode == 'tomatoes-boost' %}
-            Rotten Tomatoes-boosted results: {{ res['hits']['total']['value'] }} (top 20 shown)
+            <b>Search mode:</b> Rotten Tomatoes-boosted
             {% endif %}
         </p>
-    </center>
-
+    </div>
+    
     <br> {% for hit in res['hits']['hits'] %}
     <div class="panel panel-default">
         <div class="panel-heading">
+            <!-- Uncomment to also show results scores
             <div class="score">
                 {% if search_mode == 'no-boost' %}
                 #{{ loop.index0 + 1}}) Score: {{ hit['_score'] }}
@@ -81,6 +87,7 @@
                 #{{ loop.index0 + 1}}) Rotten Tomatoes-boosted score: {{ hit['_score'] }}
                 {% endif %}
             </div>
+            -->
             <div class="title">
                 "{{ hit['_source']['title'] }}"
             </div>
@@ -90,18 +97,23 @@
             <div class="plot">
                 {{ hit['highlight']['plot'][0] | safe }}
             </div>
-            <div class="ratings">
-                {% if hit['_source']['imdb.rating'] > 0.0 %}
-                <i class="fab fa-imdb"></i> IMDb rating: {{ hit['_source']['imdb.rating'] }}
-                {% endif %}
-                {% if hit['_source']['tomatoes.viewer.rating'] > 0.0 %}
-                <br>
-                <i class="fas fa-apple-alt"></i> Rotten Tomatoes rating: {{ hit['_source']['tomatoes.viewer.rating'] }}
-                {% endif %}
-            </div>
+        </div>
+        <div class="panel-footer">
+            {% if hit['_source']['imdb.rating'] > 0.0 %}
+            <i class="fab fa-imdb"></i> IMDb rating: {{ hit['_source']['imdb.rating'] }}
+            {% else %}
+            <i class="fab fa-imdb"></i> IMDb rating: N/A
+            {% endif %}
+            <br>
+            {% if hit['_source']['tomatoes.viewer.rating'] > 0.0 %}
+            <i class="fas fa-apple-alt"></i> Rotten Tomatoes rating: {{ hit['_source']['tomatoes.viewer.rating'] }}
+            {% else %}
+            <i class="fab fa-imdb"></i> Rotten Tomatoes rating: N/A
+            {% endif %}
         </div>
     </div>
     {% endfor %}
+    <div class="end-margin"><br></div>
 </div>
 </body>
 </html>

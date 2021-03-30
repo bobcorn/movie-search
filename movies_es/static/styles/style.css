@@ -213,12 +213,37 @@ body {
 	color: rgba(0, 0, 0, 0.75);
 }
 
-.ratings {
-	margin-top: 10px;
+.search-info-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-info-left, .search-info-right {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+.search-info-right {
+    text-align: right;
 }
 
 .input-lg, .input-group-btn, .btn-lg {
 	height: 55px !important;
+}
+
+.input-group-btn > .btn-lg {
+    width: 65px !important;
+    border: 0px !important;
+}
+
+.btn-imdb {
+    background: #f3ce13 !important;
+}
+.btn-imdb > div, .btn-imdb > i {
+    color: #000
+}
+
+.btn-tomatoes {
+    background: #fa320a !important;
 }
 
 .boost-tag {
@@ -232,4 +257,8 @@ body {
 
 .btn-lg > i {
 	font-size: 22px;
+}
+
+.end-margin {
+    margin: 50px !important;
 }
