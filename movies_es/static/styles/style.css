@@ -262,3 +262,52 @@ body {
 .end-margin {
     margin: 50px !important;
 }
+
+.instructions-header {
+	font-size: 36px;
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+}
+
+.instructions {
+    margin: 100px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.instructions ul {
+    max-width: 500px !important;
+}
+
+.instructions-button {
+    height: 100% !important;
+}
+
+.instructions > ul li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 30px 0px;
+    list-style-type: none;
+}
+
+.instructions > li {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.instructions > ul li button {
+    margin-right: 20px;
+    width: 65px !important;
+    border: 0px !important;
+    cursor: default;
+}
+
+.explanation-header {
+    font-size: 18px;
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
