@@ -77,7 +77,6 @@
     <br> {% for hit in res['hits']['hits'] %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <!-- Uncomment to also show results scores
             <div class="score">
                 {% if search_mode == 'no-boost' %}
                 #{{ loop.index0 + 1}}) Score: {{ hit['_score'] }}
@@ -87,7 +86,6 @@
                 #{{ loop.index0 + 1}}) Rotten Tomatoes-boosted score: {{ hit['_score'] }}
                 {% endif %}
             </div>
-            -->
             <div class="title">
                 "{{ hit['_source']['title'] }}"
             </div>
