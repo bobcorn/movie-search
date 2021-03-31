@@ -235,15 +235,28 @@ body {
     border: 0px !important;
 }
 
-.btn-imdb {
-    background: #f3ce13 !important;
+.btn-no-boost-hover:hover {
+    background-color:rgb(47, 112, 167);
 }
+
+.btn-imdb {
+    background: #ffe100 !important;
+}
+
+.btn-imdb-hover:hover {
+    background-color:rgb(243, 206, 19) !important;
+}
+
 .btn-imdb > div, .btn-imdb > i {
     color: #000
 }
 
 .btn-tomatoes {
     background: #fa320a !important;
+}
+
+.btn-tomatoes-hover:hover {
+    background-color:rgb(204, 37, 4) !important;
 }
 
 .boost-tag {
@@ -298,11 +311,20 @@ body {
     margin-left: 0;
 }
 
-.instructions > ul li button {
+.instructions > ul li div button {
     margin-right: 20px;
     width: 65px !important;
     border: 0px !important;
     cursor: default;
+    outline: none;
+}
+
+.instructions > ul li div button {
+    margin-right: 20px;
+    width: 65px !important;
+    border: 0px !important;
+    cursor: default;
+    outline: none;
 }
 
 .explanation-header {
@@ -310,4 +332,21 @@ body {
 	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	margin-bottom: 5px;
+}
+
+.btn-lg:focus {
+    outline: none !important;
+}
+
+.btn-lg:active {
+    outline: none !important;
+}
+
+.btn-instr:active, .btn-instr:focus, .btn-instr:hover {
+    border-style: outset !important;
+    box-shadow: none !important;
+}
+
+.btn-no-boost-instr:hover, .btn-no-boost-instr:focus, .btn-no-boost-instr:active {
+    background-color: #428bca !important;
 }
