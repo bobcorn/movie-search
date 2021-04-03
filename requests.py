@@ -1,5 +1,4 @@
-import json
-
+# Import necessary packages
 from elasticsearch import Elasticsearch
 
 es = Elasticsearch("127.0.0.1", port=9200)
@@ -73,8 +72,8 @@ body_3_imdb = {
             },
             "script_score": {
                 "script": {
-                    # "source": "doc.containsKey('imdb.rating') ? doc['imdb.rating'].value : 1"
-                    "source": "doc['imdb.rating'].value > 0.0 ? doc['imdb.rating'].value : 1"
+                    "source": "doc.containsKey('imdb.rating') && doc['imdb.rating'].value > 0.0 \
+                    ? doc['imdb.rating'].value : 1"
                 }
             }
         }
@@ -98,7 +97,8 @@ body_3_tomatoes = {
             },
             "script_score": {
                 "script": {
-                    "source": "doc.containsKey('imdb.rating') && doc['imdb.rating'].value > 0.0 ? doc['imdb.rating'].value : 1"
+                    "source": "doc.containsKey('tomatoes.viewer.rating') && doc['tomatoes.viewer.rating'].value > 0.0 \
+                    ? doc['tomatoes.viewer.rating'].value : 1"
                 }
             }
         }

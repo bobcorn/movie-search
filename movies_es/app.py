@@ -1,3 +1,4 @@
+# Import necessary packages
 from elasticsearch import Elasticsearch
 from flask import Flask, render_template, request
 
@@ -25,11 +26,13 @@ def search_request():
                 },
                 "script_score": {
                     "script": {
-                        "source": "doc.containsKey('imdb.rating') && doc['imdb.rating'].value > 0.0 ? doc['imdb.rating'].value : 1"
+                        "source": "doc.containsKey('imdb.rating') && \
+                        doc['imdb.rating'].value > 0.0 ? doc['imdb.rating'].value : 1"
                     }
                 }
             }
         }
+
     elif request.form["search"] == "tomatoes-search":
         search_mode = "tomatoes-boost"
         query = {
@@ -42,11 +45,46 @@ def search_request():
                 },
                 "script_score": {
                     "script": {
-                        "source": "doc.containsKey('tomatoes.viewer.rating') && doc['tomatoes.viewer.rating'].value > 0.0 ? doc['tomatoes.viewer.rating'].value : 1"
+                        "source": "doc.containsKey('tomatoes.viewer.rating') && \
+                        doc['tomatoes.viewer.rating'].value > 0.0 ? doc['tomatoes.viewer.rating'].value : 1"
                     }
                 }
             }
         }
+
+    elif request.form["search"] == "robots-search":
+        search_mode = "robots"
+        query = {
+            "function_score": {
+                "query": {
+                    "bool": {
+                        "must": [
+                            {
+                                "multi_match": {
+                                    "query": "robots",
+                                    "fields": ["plot", "fullplot"]
+                                }
+                            },
+                            {
+                                "range": {
+                                    "year": {
+                                        "gte": 2000
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "script_score": {
+                    "script": {
+                        "source": "doc.containsKey('imdb.rating') && doc['imdb.rating'].value > 0.0 \
+                            && doc.containsKey('tomatoes.viewer.rating') && doc['tomatoes.viewer.rating'].value > 0.0 \
+                            ? (doc['imdb.rating'].value + doc['tomatoes.viewer.rating'].value) / 2 : 1"
+                    }
+                }
+            }
+        }
+
     else:
         search_mode = "no-boost"
         query = {
@@ -55,7 +93,7 @@ def search_request():
                 "fields": ["title", "fullplot"]
             }
         }
-
+    
     highlight = {
         "fields": {
             "fullplot": {}

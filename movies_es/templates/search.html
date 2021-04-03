@@ -33,17 +33,25 @@
         <div class="input-group">
             <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
             <div class="input-group-btn">
-                <button name="search" class="btn btn-primary btn-lg btn-no-boost btn-no-boost-hover" type="submit" value="search">
+                <button name="search" class="btn btn-primary btn-lg btn-no-boost btn-no-boost-hover" type="submit"
+                        value="search">
                     <i class="fas fa-search"></i>
                     <div class="boost-tag">search</div>
                 </button>
-                <button name="search" class="btn btn-primary btn-lg btn-imdb btn-imdb-hover" type="submit" value="imdb-search">
+                <button name="search" class="btn btn-primary btn-lg btn-imdb btn-imdb-hover" type="submit"
+                        value="imdb-search">
                     <i class="fab fa-imdb"></i>
                     <div class="boost-tag">boost</div>
                 </button>
-                <button name="search" class="btn btn-primary btn-lg btn-tomatoes btn-tomatoes-hover" type="submit" value="tomatoes-search">
+                <button name="search" class="btn btn-primary btn-lg btn-tomatoes btn-tomatoes-hover" type="submit"
+                        value="tomatoes-search">
                     <i class="fas fa-apple-alt"></i>
                     <div class="boost-tag">boost</div>
+                </button>
+                <button name="search" class="btn btn-primary btn-lg btn-robots btn-robots-hover" type="submit"
+                        value="robots-search">
+                    <i class="fas fa-robot"></i>
+                    <div class="boost-tag">robots</div>
                 </button>
             </div>
         </div>
@@ -92,6 +100,23 @@
                     <div class="explanation-header">I trust Rotten Tomatoes!</div>
                     <div class="explanation-body">Use this button to search for movies in the database, leveraging
                         on their <b>titles</b>, <b>plot</b> information and <b>ratings on Rotten Tomatoes</b>.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="instructions-button">
+                    <button name="search" class="btn btn-primary btn-lg btn-robots btn-instr" type="submit"
+                            value="tomatoes-search">
+                        <i class="fas fa-robot"></i>
+                        <div class="boost-tag">robots</div>
+                    </button>
+                </div>
+                <div class="explanation">
+                    <div class="explanation-header">I like robots!</div>
+                    <div class="explanation-body">Use this button to search for movies in the database that best match
+                        the word <b>“robots”</b> in their <b>plot</b> and <b>fullplot</b>, and that have been
+                        published after year 2000. Results are calculated leveraging on both their
+                        <b>ratings on IMDb and Rotten Tomatoes</b>.
                     </div>
                 </div>
             </li>

@@ -17,6 +17,8 @@
         IMDb-boosted results
         {% elif search_mode == 'tomatoes-boost' %}
         Rotten Tomatoes-boosted results
+        {% elif search_mode == 'robots' %}
+        Robots results
         {% endif %}
     </title>
 </head>
@@ -39,17 +41,25 @@
         <div class="input-group">
             <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
             <div class="input-group-btn">
-                <button name="search" class="btn btn-primary btn-lg btn-no-boost btn-no-boost-hover" type="submit" value="search">
+                <button name="search" class="btn btn-primary btn-lg btn-no-boost btn-no-boost-hover" type="submit"
+                        value="search">
                     <i class="fas fa-search"></i>
                     <div class="boost-tag">search</div>
                 </button>
-                <button name="search" class="btn btn-primary btn-lg btn-imdb btn-imdb-hover" type="submit" value="imdb-search">
+                <button name="search" class="btn btn-primary btn-lg btn-imdb btn-imdb-hover" type="submit"
+                        value="imdb-search">
                     <i class="fab fa-imdb"></i>
                     <div class="boost-tag">boost</div>
                 </button>
-                <button name="search" class="btn btn-primary btn-lg btn-tomatoes btn-tomatoes-hover" type="submit" value="tomatoes-search">
+                <button name="search" class="btn btn-primary btn-lg btn-tomatoes btn-tomatoes-hover" type="submit"
+                        value="tomatoes-search">
                     <i class="fas fa-apple-alt"></i>
                     <div class="boost-tag">boost</div>
+                </button>
+                <button name="search" class="btn btn-primary btn-lg btn-robots btn-robots-hover" type="submit"
+                        value="robots-search">
+                    <i class="fas fa-robot"></i>
+                    <div class="boost-tag">robots</div>
                 </button>
             </div>
         </div>
@@ -65,6 +75,8 @@
             <b>Search mode:</b> IMDb-boosted
             {% elif search_mode == 'tomatoes-boost' %}
             <b>Search mode:</b> Rotten Tomatoes-boosted
+            {% elif search_mode == 'robots' %}
+            <b>Search mode:</b> Robots
             {% endif %}
         </p>
         <p>
@@ -78,7 +90,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="score">
-                {% if search_mode == 'no-boost' %}
+                {% if search_mode == 'no-boost' or search_mode == 'robots' %}
                 #{{ loop.index0 + 1}}) Score: {{ hit['_score'] }}
                 {% elif search_mode == 'imdb-boost' %}
                 #{{ loop.index0 + 1}}) IMDb-boosted score: {{ hit['_score'] }}
