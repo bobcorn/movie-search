@@ -3,9 +3,9 @@ from elasticsearch import Elasticsearch
 
 es = Elasticsearch("127.0.0.1", port=9200)
 
-# Get the list of the first 20 movies that best match the word “robots” in both the plot and fullplot, and that have
-# been published after year 2000. Boost the results by multiplying the standard score with the average between
-# IMDb and Rotten Tomatoes ratings.
+# Get the list of the first 20 movies that best match the word “robots” in both the plot and fullplot and that have
+# been published after year 2000. Boost the results by multiplying the standard score with the average between IMDb and
+# Rotten Tomatoes ratings.
 body = {
     "query": {
         "function_score": {
